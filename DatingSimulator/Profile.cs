@@ -19,16 +19,23 @@ namespace DatingSimulator
         public int userAge;
         public string _userPersonality;
 
+
         public Profile()
         {
             people = new List<Person>()
             {
-                    new Person("Alex", "Shy", "I like quiet and peacful places. I'd love to go hang out in a park or something", 23, false ),
+
+                    new Person("Alex", "Shy", "I like quiet and peaceful places. I'd love to go hang out in a park or something", 23, false),
+                    new Person("Rose", "Shy", "I love nature. Sitting on a bench and listening to the birds chirp is my favourite thing", 22, true),
+                    new Person("Myers", "Shy", "The less people there are, the better. Besides, I'd like to be able to spend more time with you only", 27, false),
+                   
                     new Person("Ryan", "Bold", "A true partyanimal. Take me to a festival and I'll show you a good time ;)", 29, true),
                     new Person("Mack", "Bold", "Let me take care of our first dinner together :)", 27, true),
-                     new Person("Skye", "Flirty", "I like long walks on the beach... And maybe in your house as well...", 28, false),
-                     new Person("Rose", "Shy", "I love nature. Sitting on a bench and listening to the birds chirp is my favourite thing", 22, true),
-                     new Person("Angel", "Flirty", "Sometimes I get called the opposite of a saint ;) Let's go on a fun date and maybe you'll find out why", 26, true),
+                    new Person("Riley", "Bold", "I need some excitement in my life. Take me to it?", 24, true),
+
+                    new Person("Angel", "Flirty", "Sometimes I get called the opposite of a saint ;) Let's go on a fun date and maybe you'll find out why", 26, true),
+                    new Person("Skye", "Flirty", "I like long walks on the beach... And maybe in your house as well...", 28, false),
+                    new Person("Jen", "Flirty", "Did it hurt when you fell down from heaven? Because I can give a mean backmassage :3", 27, true),
             };
 
         }
@@ -42,8 +49,8 @@ namespace DatingSimulator
                 Console.WriteLine("What is your age");
                 var userAge = Console.ReadLine();
                 Console.WriteLine("What's your personality type?");
-               
-                Console.WriteLine("Choose one of these three personality types: \r\n 1) Awkward. \r\n 2) Adventurous. \r\n 3) Hopeless romantic");
+
+                Console.WriteLine("Choose one of these three personality types: \r\n 1) Awkward. \r\n 2) Adventurous. \r\n 3) Romantic");
                 var userPersonality = Console.ReadLine();
 
                 Person dateable = new Person();
@@ -60,7 +67,7 @@ namespace DatingSimulator
                 }
                 else if (userPersonality == "3")
                 {
-                    _userPersonality = "Hopeless romantic";
+                    _userPersonality = "Romantic";
                     dateable = GetRandomPerson("Flirty");
                 }
                 else
@@ -72,9 +79,9 @@ namespace DatingSimulator
             }
 
 
-           void MatchSystem(string? userName, string? _userPersonality, Person dateable)
+            void MatchSystem(string? userName, string? _userPersonality, Person dateable)
             {
-                
+                bool _matched = false;
                 bool _inMenu = true;
                 while (_inMenu)
                 {
@@ -88,49 +95,62 @@ namespace DatingSimulator
                     if (_userPersonality == "Adventurous")
                     {
                         Console.WriteLine($"You've matched with {dateable.Name}");
+                        _matched = true;
                     }
                     if (_userPersonality == "Awkward")
                     {
                         Console.WriteLine($"You've matched with {dateable.Name}");
+                        _matched = true;
                     }
-                    if (_userPersonality == "Flirty")
+                    if (_userPersonality == "Romantic")
                     {
                         Console.WriteLine($"You've matched with {dateable.Name}");
+                        _matched = true;
                     }
-                    Console.WriteLine($"Congrats on the match! Would you like to see more information on {dateable.Name} before going on a date? y for yes, g for go on date, n for no - return to profile maker");
-                    var userInput = Console.ReadLine();
-                    if (userInput == "y") 
+
+
+                    while (_matched)
                     {
-                        dateable.getDateInfo();
-                        
-                        
-                        
-                    }
-                    if (userInput == "n") 
-                    {
-                       return;
-                    }
-                    if (userInput == "g")
-                    {
-                        goOnDate(userName, dateable);
+                        Console.WriteLine($"Congrats on the match! Would you like to see more information on {dateable.Name} before going on a date? y for yes, g for go on date, n for no - return to profile maker");
+                        var userInput = Console.ReadLine();
+                        if (userInput == "y")
+                        {
+                            dateable.getDateInfo();
+
+
+
+                        }
+                        if (userInput == "n")
+                        {
+                            return;
+                        }
+                        if (userInput == "g")
+                        {
+                            goOnDate(userName, dateable);
+                        }
+
                     }
 
                 }
-                
             }
         }
-       public void goOnDate(string? userName, Person dateable)
+
+
+
+        public void goOnDate(string? userName, Person dateable)
         {
             var date = new DatePlaces();
             date.DatePlaceMenu(userName, dateable);
         }
-   
-      public Person GetRandomPerson(string personalityType)
+
+        public Person GetRandomPerson(string personalityType)
         {
             var possibleDateables = people.Where(person => person.PersonalityType == personalityType).ToList();
             var index = Random.Next(0, possibleDateables.Count);
             return possibleDateables[index];
         }
+
+       
     }
 }
     
