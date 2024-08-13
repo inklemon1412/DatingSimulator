@@ -15,7 +15,7 @@ namespace DatingSimulator
         int energyBySleep = 100;
         int actionCost = 10;
         int raiseEnergy = 5;
-
+       
 
         internal void GoSleep()
         {
@@ -27,16 +27,20 @@ namespace DatingSimulator
             Thread.Sleep(500);
             EnergyPoints += energyBySleep;
             Console.WriteLine("You awake feeling well rested. \r\n Would you like to go on another date, or choose another person?");
+            Console.WriteLine("1) Go on next date");
+            Console.WriteLine("2) Find someone else");
             var menuChoice = Console.ReadLine();
             switch (menuChoice)
             {
                 case "1":
+                    Console.WriteLine("You decide to call up your date once more, wanting another round with them.");
 
-                break;
+                    break;
             }
 
             
         }
+
         public void energyActions()
         {
             EnergyPoints -= actionCost;
@@ -47,6 +51,6 @@ namespace DatingSimulator
             Console.WriteLine("Energy raised by five points by ingesting consumable");
         }
 
-       
+      
     }
 }

@@ -8,7 +8,7 @@ namespace DatingSimulator
 {
     class Beach : ILocations
     {
-        public void GoTo(Person dateable, User user)
+        public void GoTo(Person dateable, Actions actions, Profile profile)
         {
             
             Console.WriteLine($"You decided to take {dateable.Name} to the beach");

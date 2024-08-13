@@ -24,6 +24,8 @@ namespace DatingSimulator
         public int Points { get; private set; }
         int _pointsOnAnswer = 10;
         int _extraPoints = 20;
+
+        public int reset{  get; private set; }
         public Person(string name, string personalityType, string description, int age,  bool showsAge)
         {
             Name = name;
@@ -32,11 +34,16 @@ namespace DatingSimulator
             Age = age;
             ShowsAge = showsAge;
             Points = 0;
+            reset = Points - Points;
             
             
         }
         public Person() { }
 
+        public void PersonMenu(List <Person> people) 
+        {
+            ShowInfo(people);
+        }
         public void ShowInfo(List<Person> people)
         {
             foreach (var person in people)
@@ -74,9 +81,11 @@ namespace DatingSimulator
         }
         internal void extraPoints()
         {
-            Points = _extraPoints;
+            Points += _extraPoints;
             Console.WriteLine("Extra points gained!");
         }
+
+       
 
         public void holdHands()
         {
@@ -94,26 +103,7 @@ namespace DatingSimulator
             }
         }
 
-
-        public void dateEnd()
-        {
-            if (Points == 40)
-            {
-                Console.WriteLine($"{Name} seemed to have a really good time with you! Definitely consider taking them on another one!");
-            }
-            if (Points == 60)
-            {
-                Console.WriteLine($"Wow! Talk about a dreamdate! This one went really well, and it would seem {Name} is really into you ;)");
-            }
-            if (Points < -20)
-            {
-                Console.WriteLine("Oof, talk about a disaster. Either this person isn't for you, or you should consider upping that rizz a bit better.");
-            }
-            else
-            {
-                Console.WriteLine("The date could've gone better, but it also could've gone a lot worse. \r\n Try something a bit different next time, and who knows what'll happen!");
-            }
-        }
+    
     }
     }
 

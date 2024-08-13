@@ -14,11 +14,12 @@ namespace DatingSimulator
     {
         public List<Person> people { get; private set; }
         public Random Random = new Random();
-        public string dateable { get; private set; }
+        public Person dateable;
+
         public string userName { get; private set; }
         public int userAge;
         public string _userPersonality;
-
+        private User user;
 
         public Profile()
         {
@@ -40,7 +41,7 @@ namespace DatingSimulator
 
         }
 
-        public void ProfileMenu()
+        public void ProfileMenu(Profile profile)
         {
             while (true)
             {
@@ -52,8 +53,9 @@ namespace DatingSimulator
 
                 Console.WriteLine("Choose one of these three personality types: \r\n 1) Awkward. \r\n 2) Adventurous. \r\n 3) Romantic");
                 var userPersonality = Console.ReadLine();
+                var userInput = Console.ReadLine();
 
-                Person dateable = new Person();
+                
 
                 if (userPersonality == "1")
                 {
@@ -70,16 +72,21 @@ namespace DatingSimulator
                     _userPersonality = "Romantic";
                     dateable = GetRandomPerson("Flirty");
                 }
-                else
+
+                
+               else
                 {
-                    Console.WriteLine("No match for personality type found");
+                    Console.WriteLine("no match found");
+                    
+                    
+                    
                 }
-                MatchSystem(userName, _userPersonality, dateable);
+                MatchSystem(userName, _userPersonality, dateable, user, profile);
 
             }
 
 
-            void MatchSystem(string? userName, string? _userPersonality, Person dateable)
+            void MatchSystem(string? userName, string? _userPersonality, Person dateable, User user, Profile profile)
             {
                 bool _matched = false;
                 bool _inMenu = true;
@@ -90,6 +97,7 @@ namespace DatingSimulator
                     Thread.Sleep(800);
                     Console.WriteLine("Matching...");
                     Thread.Sleep(800);
+                 //   dateable.resetPoints();
 
 
                     if (_userPersonality == "Adventurous")
@@ -126,8 +134,9 @@ namespace DatingSimulator
                         }
                         if (userInput == "g")
                         {
-                            goOnDate(userName, dateable);
+                            goOnDate(userName, dateable, user, profile);
                         }
+                        
 
                     }
 
@@ -137,10 +146,10 @@ namespace DatingSimulator
 
 
 
-        public void goOnDate(string? userName, Person dateable)
+        public void goOnDate(string? userName, Person dateable, User user, Profile profile)
         {
             var date = new DatePlaces();
-            date.DatePlaceMenu(userName, dateable);
+            date.DatePlaceMenu(userName, dateable, profile);
         }
 
         public Person GetRandomPerson(string personalityType)
@@ -150,7 +159,7 @@ namespace DatingSimulator
             return possibleDateables[index];
         }
 
-       
+      
     }
 }
     

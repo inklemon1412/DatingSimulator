@@ -8,6 +8,6 @@ namespace DatingSimulator
 {
     interface ILocations
     {
-        void GoTo(Person dateable, User user);
+        void GoTo(Person dateable, Actions actions, Profile profile);
     }
 }

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DatingSimulator
 {
+
     class House : ILocations
     {
-        public void GoTo(Person dateable, User user)
+        public void GoTo(Person dateable, Actions actions, Profile profile)
         {
-            
+
             if (dateable.Points == 100)
             {
                 Console.WriteLine($"Feeling you were close enough, you wanted to take {dateable.Name} to your home.");
@@ -21,5 +24,8 @@ namespace DatingSimulator
             }
             bool _onDate = true;
         }
+      
+  
+       
     }
 }

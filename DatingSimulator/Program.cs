@@ -27,8 +27,10 @@ void MainMenu()
         var userInput = Console.ReadLine();
         if (userInput == "1")
         {
-            profile.ProfileMenu();
+            profile.ProfileMenu(profile);
         }
+        
+       
      
     }
 }

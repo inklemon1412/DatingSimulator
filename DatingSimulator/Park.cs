@@ -13,7 +13,7 @@ namespace DatingSimulator
        
         
        
-        public void GoTo(Person dateable, User user)
+        public void GoTo(Person dateable, Actions actions, Profile profile)
         {
             
 
@@ -44,7 +44,7 @@ namespace DatingSimulator
                 Console.WriteLine("3) To see current activities available");
                 Console.WriteLine("6) to end the date");
                 Console.WriteLine($"Your current dating points are: {dateable.Points}");
-                Console.WriteLine($"Energytracker: {user.EnergyPoints}");
+                Console.WriteLine($"Energytracker: {actions.EnergyPoints}");
                 string datingChoice = Console.ReadLine();
                 switch (datingChoice)
                 {
@@ -56,15 +56,15 @@ namespace DatingSimulator
                         if (dateable.ShowsAge == false)
                         {
                             Console.WriteLine("Seeing as your date hasn't disclosed their age to you yet, you feel like this is the perfect time to ask");
-                            Console.WriteLine($"{dateable.Name} has disclosed their age for you: {dateable.Age}");
+                            Console.WriteLine($"{dateable.Name} tells you their age: {dateable.Age}");
                         }
                        
                         break;
                     case "3":
-                        SeeParkActivities(dateable, dateable.Points, user, user.EnergyPoints);
+                        SeeParkActivities(dateable, dateable.Points, actions, actions.EnergyPoints);
                         break;
                     case "6":
-                        dateable.dateEnd();
+                        actions.dateEnd(dateable, dateable.Points);
 
                         return;
 
@@ -72,22 +72,25 @@ namespace DatingSimulator
                 }
             }
         } 
-        public void SeeParkActivities(Person dateable, int points, User user, int EnergyPoints)
+        public void SeeParkActivities(Person dateable, int points, Actions actions, int EnergyPoints)
         {
-            user.energyActions();
+            actions.energyActions();
+            
             Console.WriteLine("These are the things you can do at the park:");
             Console.WriteLine("1) Buy some ice cream for you and your date");
             Console.WriteLine("2) Ride on the swan boat with your date");
             Console.WriteLine("3) Sit by a bench and look at the lake ");
-            Console.WriteLine(points);
+            Console.WriteLine($"Your current dating points are: {dateable.Points}");
             Console.WriteLine(EnergyPoints);
             
 
             var parkChoices = Console.ReadLine();
             switch (parkChoices)
             {
+
                 case "1":
-                    user.energyBuy();
+                    actions.energyBuy();
+                    
                     Console.WriteLine($"You've decided to buy some ice cream for you and {dateable.Name}");
                     if (dateable.PersonalityType == "Bold" || dateable.PersonalityType == "Flirty")
                     {
@@ -127,6 +130,7 @@ namespace DatingSimulator
 
                     }
                     break;
+                    
             }
         }
     }

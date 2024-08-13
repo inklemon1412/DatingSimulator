@@ -8,7 +8,7 @@ namespace DatingSimulator
 {
     class Festival : ILocations
     {
-        public void GoTo(Person dateable, User user) 
+        public void GoTo(Person dateable, Actions actions, Profile profile) 
         {
             
             Console.WriteLine($"You decided to take {dateable.Name} to the local festival");
@@ -44,10 +44,10 @@ namespace DatingSimulator
                         dateable.holdHands(); 
                         break;
                     case "2":
-                        SeeFestActivities(dateable, dateable.Points, user, user.EnergyPoints);
+                        SeeFestActivities(dateable, dateable.Points, actions, actions.EnergyPoints);
                         break;
                         case "3":
-                        dateable.dateEnd();
+                        actions.dateEnd(dateable, dateable.Points);
 
                         return;
                 }
@@ -55,9 +55,9 @@ namespace DatingSimulator
             }
            
         } 
-        public void SeeFestActivities(Person dateable, int points, User user, int EnergyPoints)
+        public void SeeFestActivities(Person dateable, int points, Actions actions, int EnergyPoints)
         {
-            user.energyActions();
+            actions.energyActions();
             Console.WriteLine("These are the things you can do at the festival:");
             Console.WriteLine("1) Go to the haunted house.");
             Console.WriteLine("2) Go to the tunnel of love.");
@@ -86,6 +86,32 @@ namespace DatingSimulator
                         Console.WriteLine($"{dateable.Name} seems to be bored. They can't see you very well, after all");
                     }
 
+                    break;
+
+                    case "2":
+                    Console.WriteLine("Rumour has it that a ride in the tunnel of love will reveal your date's feelings for you. Feeling boldened by this rumour, you take your date with you.");
+                    if (dateable.Points < 50)
+                    {
+                        Console.WriteLine($"This might've been a bit forward for {dateable.Name}, and the ride is long and awkward for the both of you");
+                    }
+                    else
+                    {
+                        dateable.getPoints();
+                        Console.WriteLine($"Smiling at your suggestion, {dateable.Name} joins you gladly. Illuminated by the flashing lights of pink and red they kiss your cheek");
+                    }
+                    break;
+                case "3":
+                   Console.WriteLine("The ferriswheel looms over you. Sure you're brave enough?");
+                    if (dateable.Points < 60 || dateable.PersonalityType == "Shy") 
+                    {
+                        dateable.loosePoints();
+                        Console.WriteLine($"Uh oh! This might not have been the best idea. {dateable.Name} looks a bit sick. Could they have been afraid of heights?");
+                    }
+                    else
+                    {
+                        dateable.getPoints();
+                        Console.WriteLine($"The view looks magnificent from up here! Feeling a bit bolder, you shuffle closer towards {dateable.Name} and put your arm around their shoulder");
+                    }
                     break;
             }
 
